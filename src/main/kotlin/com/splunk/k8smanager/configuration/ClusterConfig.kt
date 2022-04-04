@@ -12,7 +12,7 @@ import java.io.FileReader
 @org.springframework.context.annotation.Configuration
 class ClusterConfig {
 
-    private final val kubeConfigPath = "/Users/tjohander/.kube/config";
+    private final val kubeConfigPath = "/Users/lopan/.kube/config";
 
     @Bean
     fun coreApi(): CoreV1Api {
