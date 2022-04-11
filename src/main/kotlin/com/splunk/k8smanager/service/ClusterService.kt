@@ -41,12 +41,6 @@ class ClusterService(
     }
 
     fun scaleDeployment(name: String, namespace: String?, body: V1Patch): Deployment {
-//        val current: V1Deployment = appsV1Api.readNamespacedDeployment(
-//            name,
-//            namespace,
-//            null
-//        )
-//        val updateRequest = V1Patch(current.toString())
         val updated: V1Deployment = appsV1Api.patchNamespacedDeployment(
             name,
             namespace ?: "default",
