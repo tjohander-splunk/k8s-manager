@@ -43,4 +43,14 @@ class ClustersController(
     ): Deployment {
         return clusterService.scaleDeployment(name, namespace ?: "default", V1Patch(body))
     }
+
+    @PostMapping(value = ["/deployment/image"], params = ["name", "namespace"])
+    @ResponseBody
+    fun updateImage(
+        @RequestParam("name") name: String,
+        @RequestParam("namespace") namespace: String?,
+        @RequestBody body: String
+    ): Deployment {
+        return clusterService.updateImage(name, namespace ?: "default", V1Patch(body))
+    }
 }
