@@ -53,6 +53,19 @@ class ClusterService(
             return updated.toDeployment()
     }
 
+    fun updateImage(name: String, namespace: String?, body: V1Patch): Deployment {
+        val updated: V1Deployment = appsV1Api.patchNamespacedDeployment(
+            name,
+            namespace ?: "default",
+            body,
+            null,
+            null,
+            null,
+            "Warn",
+            null)
+        return updated.toDeployment()
+    }
+
     private fun parsePodList(list: V1PodList): List<Pod> {
         return list.items.map { pod ->
             Pod(
