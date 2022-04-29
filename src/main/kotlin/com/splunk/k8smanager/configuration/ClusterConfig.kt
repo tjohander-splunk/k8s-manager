@@ -6,13 +6,14 @@ import io.kubernetes.client.openapi.apis.AppsV1Api
 import io.kubernetes.client.openapi.apis.CoreV1Api
 import io.kubernetes.client.util.ClientBuilder
 import io.kubernetes.client.util.KubeConfig
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import java.io.FileReader
 
 @org.springframework.context.annotation.Configuration
-class ClusterConfig {
-
-    private final val kubeConfigPath = "/Users/lopan/.kube/config";
+class ClusterConfig(
+    @Value("\${kubeconfig-path}") private val kubeConfigPath: String
+) {
 
     @Bean
     fun coreApi(): CoreV1Api {

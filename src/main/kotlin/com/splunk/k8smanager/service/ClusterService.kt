@@ -35,13 +35,11 @@ class ClusterService(
     }
 
     fun getDeployment(name: String, namespace: String): Deployment {
-        val deployment = appsV1Api
-            .readNamespacedDeployment(name, namespace, null).toDeployment()
-        return deployment
+        return appsV1Api.readNamespacedDeployment(name, namespace, null).toDeployment()
     }
 
     fun scaleDeployment(name: String, namespace: String?, body: V1Patch): Deployment {
-        val updated: V1Deployment = appsV1Api.patchNamespacedDeployment(
+        return appsV1Api.patchNamespacedDeployment(
             name,
             namespace ?: "default",
             body,
@@ -49,8 +47,7 @@ class ClusterService(
             null,
             null,
             "Warn",
-            null)
-            return updated.toDeployment()
+            null).toDeployment()
     }
 
     fun updateImage(name: String, namespace: String?, body: V1Patch): Deployment {
@@ -75,5 +72,4 @@ class ClusterService(
         }
     }
 
-    fun getClusterInfo() = "Clusters!"
 }
