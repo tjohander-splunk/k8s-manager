@@ -21,7 +21,9 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("io.kubernetes:client-java:15.0.0")
+    implementation("io.kubernetes:client-java:15.0.1")
+    implementation(platform("software.amazon.awssdk:bom:2.17.180"))
+    implementation ("software.amazon.awssdk:s3")
 //    implementation("org.testng:testng:7.1.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }

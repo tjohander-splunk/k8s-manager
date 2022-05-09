@@ -5,7 +5,7 @@ import com.splunk.k8smanager.model.response.PodsResponse
 import com.splunk.k8smanager.service.ClusterService
 import com.splunk.k8smanager.toResponse
 import io.kubernetes.client.custom.V1Patch
-import jdk.jfr.ContentType
+import io.kubernetes.client.openapi.models.V1Scale
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
@@ -34,14 +34,27 @@ class ClustersController(
         return clusterService.getDeployment(name, namespace ?: "default")
     }
 
+
+    @Deprecated("Old Way", replaceWith = ReplaceWith("scaleDeployment()"))
     @PostMapping(value = ["/deployment/scale"], params = ["name", "namespace"])
     @ResponseBody
-    fun scaleDeployment(
+    private fun scaleDeploymentWithPostBody(
         @RequestParam("name") name: String,
         @RequestParam("namespace") namespace: String?,
         @RequestBody body: String
     ): Deployment {
         return clusterService.scaleDeployment(name, namespace ?: "default", V1Patch(body))
+    }
+
+    @PostMapping(value = ["/deployment/scale"], params = ["namespace", "label", "size"])
+    @ResponseBody
+    fun scaleDeployment(
+        @RequestParam("namespace") namespace: String?,
+        // query parameter value must be in the format '<labelKey>=<labelValue>' see: https://www.baeldung.com/java-kubernetes-namespaces-selectors#using_label_selectors
+        @RequestParam("label") label: String,
+        @RequestParam("size") size: Int
+    ): V1Scale {
+        return clusterService.scaleDeploymentByLabelSelector(namespace, label, size) ?: throw Exception("oh no!")
     }
 
     @PostMapping(value = ["/deployment/image"], params = ["name", "namespace"])
