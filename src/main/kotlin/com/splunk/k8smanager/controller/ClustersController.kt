@@ -36,7 +36,6 @@ class ClustersController(
 
 
     @Deprecated("Old Way", replaceWith = ReplaceWith("scaleDeployment()"))
-    @PostMapping(value = ["/deployment/scale"], params = ["name", "namespace"])
     @ResponseBody
     private fun scaleDeploymentWithPostBody(
         @RequestParam("name") name: String,

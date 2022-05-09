@@ -22,13 +22,6 @@ curl --request GET \
 #### Scale a deployment by name
 ```bash
 curl --request POST \
-  --url 'http://localhost:8080/clusters/deployment/scale?name=nginx-deployment&namespace=default' \
+  --url 'http://localhost:8080/clusters/deployment/scale?label=app%3Dnginx&size=3&namespace=default' \
   --header 'Content-Type: application/json-patch+json' \
-  --data '[
-	{
-		"op": "replace",
-		"path": "/spec/replicas",
-		"value": 10
-	}
-]'
 ```
