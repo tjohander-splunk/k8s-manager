@@ -23,5 +23,5 @@ curl --request GET \
 ```bash
 curl --request POST \
   --url 'http://localhost:8080/clusters/deployment/scale?label=app%3Dnginx&size=3&namespace=default' \
-  --header 'Content-Type: application/json-patch+json' \
+  --header 'Content-Type: application/json-patch+json'
 ```
